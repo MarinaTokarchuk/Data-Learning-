@@ -1,0 +1,10 @@
+--оконные функции
+-- вычисляем, какую долю составляет зп каждого сотрудника относительно его департамента
+
+SELECT
+  a.First_Name, a.Last_Name, b.Department_Name, a.Salary
+  round (a.Salary/SUM(Salary) OVER (PARTITION BY b.Department_Name), 2) as PR_Salary,
+  SUM(Salary) OVER (PARTITION BY b.Department_Name) as Sum_Department_Salary
+FROM 
+  emploee a
+  LEFT JOIN departments b ON a.Department_ID = b.Department_ID
